@@ -1,0 +1,27 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 123456
+    url: jdbc:mysql://127.0.0.1:3306/mall?characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+  freemarker:
+    settings:
+      classic_compatible: true
+
+# 自动映射 例如：createTime与数据库的create_time会自动映射，不用特别标注
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  # 配置xml文件所在的路径要不找不到
+  mapper-locations: classpath:mappers/*.xml
+
+logging:
+  pattern:
+    console: "[%thread] %-5level %logger{36} - %msg%n"
+
+wx:
+  appId: wxd898fcb01713c658
+  mchId: 1483469312
+  mchKey: 098F6BCD4621D373CADE4E832627B4F6
+  notifyUrl: http://（域名）/pay/notify
+  returnUrl: http://iaixxi.natappfree.cc
