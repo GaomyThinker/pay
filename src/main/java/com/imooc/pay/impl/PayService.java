@@ -1,6 +1,7 @@
 package com.imooc.pay.impl;
 
 
+import com.google.gson.Gson;
 import com.imooc.pay.dao.PayInfoMapper;
 import com.imooc.pay.enums.PayPlatFormEnum;
 import com.imooc.pay.pojo.PayInfo;
@@ -16,6 +17,7 @@ import com.lly835.bestpay.service.BestPayService;
 import com.lly835.bestpay.service.impl.BestPayServiceImpl;
 import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +33,11 @@ import java.math.BigDecimal;
 @Service
 @Slf4j
 public class PayService implements IPayService {
+
+    private final static String QUEUE_PAY_NOTIFY="payNotify";
+
+    @Autowired
+    private AmqpTemplate amqpTemplate;
 
     @Autowired
     private BestPayService bestPayService;
@@ -93,7 +100,7 @@ public class PayService implements IPayService {
         }
 
         //TODO pay系统发送MQ消息，mall系统接受MQ消息
-
+        amqpTemplate.convertAndSend(QUEUE_PAY_NOTIFY, new Gson().toJson(payInfo));
          // 4.告诉微信不要再通知了，已经收到通知了 (返回给微信的数据内容，参照微信官方文档的要求)
 
         if (payResponse.getPayPlatformEnum()== BestPayPlatformEnum.WX){

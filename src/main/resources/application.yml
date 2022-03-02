@@ -7,6 +7,11 @@ spring:
   freemarker:
     settings:
       classic_compatible: true
+  rabbitmq:
+    addresses: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
 
 # 自动映射 例如：createTime与数据库的create_time会自动映射，不用特别标注
 mybatis:

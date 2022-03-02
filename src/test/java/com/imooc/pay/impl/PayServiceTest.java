@@ -4,6 +4,7 @@ import com.imooc.pay.PayApplicationTests;
 import com.lly835.bestpay.enums.BestPayTypeEnum;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 
@@ -15,7 +16,7 @@ import java.math.BigDecimal;
  * @Version 1.0
  */
 
-
+@Transactional
 public class PayServiceTest extends PayApplicationTests {
     @Autowired
     private PayService payService;
@@ -23,7 +24,7 @@ public class PayServiceTest extends PayApplicationTests {
     @Test
     public void create() {
         //BigDecimal.valueOf(0.01) 等同于 new BigDecimal("0.01")
-        payService.create("123456", BigDecimal.valueOf(0.01), BestPayTypeEnum.ALIPAY_PC);
+        payService.create("1234560", BigDecimal.valueOf(0.01), BestPayTypeEnum.WXPAY_NATIVE);
 
     }
 }
